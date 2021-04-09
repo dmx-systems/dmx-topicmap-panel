@@ -25,7 +25,6 @@ export default {
 <style>
 .dmx-toolbar {
   display: flex;              /* arrange children as a row */
-  align-items: flex-start;
   position: absolute;         /* share space with Cytoscape canvas */
   z-index: 1001;              /* render on top of Leaflet container */
   box-sizing: border-box;
@@ -34,9 +33,9 @@ export default {
   pointer-events: none;       /* make toolbar click-through */
 }
 
-.dmx-toolbar > div {
+.dmx-toolbar > div,
+.dmx-toolbar > div > div {
   display: flex;
-  align-items: baseline;
 }
 
 .dmx-toolbar > div.right {
