@@ -62,7 +62,7 @@ const actions = {
       case 'DELETE_TOPIC':
         deleteTopic(dir.arg.id)
         break
-      case 'DELETE_ASSOCIATION':
+      case 'DELETE_ASSOC':
         deleteAssoc(dir.arg.id)
         break
       }
@@ -193,20 +193,20 @@ function deleteTopic (id) {
   // update state
   Object.keys(topicmapCache).forEach(topicmapId => {
     // Note: topicmap.removeAssocsWithPlayer() is not called. The assocs will be removed while processing
-    // the DELETE_ASSOCIATION directives as received along with the DELETE_TOPIC directive.
+    // the DELETE_ASSOC directives as received along with the DELETE_TOPIC directive.
     topicmapCache[topicmapId].removeTopic(id)
   })
   // Note: the view is updated by the particular renderer
 }
 
 /**
- * Processes a DELETE_ASSOCIATION directive.
+ * Processes a DELETE_ASSOC directive.
  */
 function deleteAssoc (id) {
   // update state
   Object.keys(topicmapCache).forEach(topicmapId => {
     // Note: topicmap.removeAssocsWithPlayer() is not called. The assocs will be removed while processing
-    // the DELETE_ASSOCIATION directives as received along with the DELETE_ASSOCIATION directive.
+    // the DELETE_ASSOC directives as received along with the DELETE_ASSOC directive.
     topicmapCache[topicmapId].removeAssoc(id)
   })
   // Note: the view is updated by the particular renderer
