@@ -179,6 +179,10 @@ function getTopicmap (id, dispatch) {
       }
       topicmapCache[id] = topicmap
       return topicmap
+    }).then(topicmap => {
+      return dispatch('fetchTopicmapAppendix', topicmap)
+    }).then(() => {
+      return topicmapCache[id]
     })
   }
   return p
