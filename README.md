@@ -2,6 +2,14 @@
 
 ## Version History
 
+**2.1** -- Jun 15, 2021
+
+* Improvements:
+    * For maptype implementers: new action `fetchTopicmapAppendix` allows execution of (possibly async)
+      code *after* a topicmap was fetched but *before* it is rendered.
+* Fix:
+    * Don't wrap toolbar items
+
 **2.0** -- Dec 30, 2020
 
 * BREAKING CHANGES
@@ -160,7 +168,3 @@
 **0.2** -- Jun 14, 2017
 
 **0.1** -- Apr 28, 2017
-
-------------
-Jörg Richter  
-Dec 30, 2020
