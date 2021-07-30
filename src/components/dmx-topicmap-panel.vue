@@ -2,7 +2,7 @@
   <div class="dmx-topicmap-panel" v-loading="loading">
     <dmx-toolbar :comp-defs="toolbarCompDefs_"></dmx-toolbar>
     <component :is="topicmapRenderer" :object="object_" :writable="writable_" :detail-renderers="detailRenderers"
-      :context-commands="contextCommands" :quill-config="quillConfig">
+      :context-commands="contextCommands" :drop-handler="dropHandler" :quill-config="quillConfig">
     </component>
   </div>
 </template>
@@ -32,6 +32,7 @@ export default {
     toolbarCompDefs: Object,
     topicmapTypes:   Object,
     contextCommands: Object,
+    dropHandler:     Array,
     quillConfig:     Object
   },
 
