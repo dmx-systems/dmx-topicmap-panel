@@ -50,10 +50,6 @@ const actions = {
     topicmapCache = {}
   },
 
-  resizeTopicmapRenderer () {
-    // empty dummy action to catch a "resize" request when no renderer is mounted yet
-  },
-
   // WebSocket messages
 
   _processDirectives (_, directives) {

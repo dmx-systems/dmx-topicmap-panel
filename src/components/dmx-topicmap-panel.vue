@@ -1,8 +1,9 @@
 <template>
   <div class="dmx-topicmap-panel" v-loading="loading">
     <dmx-toolbar :comp-defs="toolbarCompDefs_"></dmx-toolbar>
-    <component :is="topicmapRenderer" :object="object_" :writable="writable_" :detail-renderers="detailRenderers"
-      :context-commands="contextCommands" :drop-handler="dropHandler" :quill-config="quillConfig">
+    <component :is="topicmapRenderer" :topicmap="topicmap_" :object="object_" :writable="writable_"
+      :detail-renderers="detailRenderers" :context-commands="contextCommands" :drop-handler="dropHandler"
+      :quill-config="quillConfig">
     </component>
   </div>
 </template>
@@ -29,6 +30,7 @@ export default {
   ],
 
   props: {
+    topicmap:        Object,
     toolbarCompDefs: Object,
     topicmapTypes:   Object,
     contextCommands: Object,
@@ -43,6 +45,7 @@ export default {
       // Note: making `toolbarCompDefs` dynamic allows components to be added *after* dmx-topicmap-panel instantiation.
       // E.g. the DMX Webclient does *not* synchronize plugin loading and instantiation of its toplevel components.
       // TODO: still true?
+      topicmap_:        this.topicmap,
       object_:          this.object,
       writable_:        this.writable,
       toolbarCompDefs_: this.toolbarCompDefs
