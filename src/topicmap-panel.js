@@ -55,6 +55,12 @@ const actions = {
   _processDirectives (_, directives) {
     directives.forEach(dir => {
       switch (dir.type) {
+      case 'UPDATE_TOPIC':
+        updateTopic(new dmx.Topic(dir.arg))
+        break
+      case 'UPDATE_ASSOC':
+        updateAssoc(new dmx.Assoc(dir.arg))
+        break
       case 'DELETE_TOPIC':
         deleteTopic(dir.arg.id)
         break
@@ -185,6 +191,22 @@ function getTopicmap (id, dispatch) {
 }
 
 // Process directives
+
+function updateTopic (topic) {
+  // update state
+  Object.keys(topicmapCache).forEach(topicmapId => {
+    topicmapCache[topicmapId].updateTopic(topic)
+  })
+  // Note: the view is updated by the particular renderer
+}
+
+function updateAssoc (assoc) {
+  // update state
+  Object.keys(topicmapCache).forEach(topicmapId => {
+    topicmapCache[topicmapId].updateAssoc(assoc)
+  })
+  // Note: the view is updated by the particular renderer
+}
 
 /**
  * Processes a DELETE_TOPIC directive.
