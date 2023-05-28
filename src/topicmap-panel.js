@@ -192,6 +192,9 @@ function getTopicmap (id, dispatch) {
 
 // Process directives
 
+/**
+ * Processes an UPDATE_TOPIC directive.
+ */
 function updateTopic (topic) {
   // update state
   Object.keys(topicmapCache).forEach(topicmapId => {
@@ -200,6 +203,9 @@ function updateTopic (topic) {
   // Note: the view is updated by the particular renderer
 }
 
+/**
+ * Processes an UPDATE_ASSOC directive.
+ */
 function updateAssoc (assoc) {
   // update state
   Object.keys(topicmapCache).forEach(topicmapId => {

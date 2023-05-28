@@ -2,6 +2,13 @@
 
 ## Version History
 
+**3.0** -- May 28, 2023
+
+* BREAKING CHANGES
+    * Add component attribute `topicmap`
+* Improvements:
+    * For maptype implementers: Topicmap Panel protocol is extended by `updateTopic()`, `updateAssoc()`
+
 **2.2** -- Aug 27, 2021
 
 * Improvements:
