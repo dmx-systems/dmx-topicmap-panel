@@ -40,11 +40,9 @@ export default {
 
   data () {
     return {
-      topicmapRenderer: undefined,
+      topicmapRenderer: undefined,          // current topicmap renderer component, updated in switchTopicmapRenderer()
       // mirror props (mirroring the *dynamic* props is sufficient)
       // Note: making `toolbarCompDefs` dynamic allows components to be added *after* dmx-topicmap-panel instantiation.
-      // E.g. the DMX Webclient does *not* synchronize plugin loading and instantiation of its toplevel components.
-      // TODO: still true?
       topicmap_:        this.topicmap,
       object_:          this.object,
       writable_:        this.writable,

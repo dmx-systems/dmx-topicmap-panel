@@ -6,7 +6,6 @@
 
 import dmx from 'dmx-api'
 import axios from 'axios'
-import Vue from 'vue'
 
 let topicmapPanel         // Component instance
 let topicmapTypes         // Registered topicmap types
@@ -28,10 +27,12 @@ const state = {
 const actions = {
 
   /**
+   * Dispatched from application (see e.g. DMX platform's dmx-topicmaps module).
+   *
    * @returns   a promise resolved once topicmap rendering is complete.
    */
   showTopicmap ({dispatch}, {topicmapTopic, writable, selection}) {
-    // console.log('showTopicmap', topicmapTopic.id)
+    // console.log('### showTopicmap()', topicmapTopic.id, writable)
     state.loading = true
     return switchTopicmapRenderer(topicmapTopic)
       .then(() => getTopicmap(topicmapTopic.id, dispatch))
@@ -42,7 +43,7 @@ const actions = {
       })
       .catch(error => {
         // TODO: handle error at higher level?
-        console.error(`Rendering topicmap ${topicmapTopic.id} failed`, error)
+        console.error(`Rendering topicmap ${topicmapTopic.id} failed.`, error)
       })
   },
 
@@ -103,12 +104,12 @@ function switchTopicmapRenderer (_topicmapTopic) {
       // console.log(`switching renderer from '${oldTypeUri}' to '${newTypeUri}'`)
       const topicmapType = getTopicmapType(newTypeUri)
       getRenderer(topicmapType).then(renderer => {
-        // 1) switch store module
+        // 1) switch renderer store module
         oldTypeUri && store.unregisterModule(oldTypeUri)
         const storeModule = renderer.storeModule
-        const _storeModule = typeof storeModule === 'function' ? storeModule({store, dmx, axios, Vue}) : storeModule
+        const _storeModule = typeof storeModule === 'function' ? storeModule({store, dmx, axios}) : storeModule
         store.registerModule(newTypeUri, _storeModule)
-        // 2) mount renderer
+        // 2) mount renderer component
         topicmapPanel.topicmapRenderer = renderer.comp
         //
         resolve()
