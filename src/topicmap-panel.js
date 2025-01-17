@@ -21,72 +21,70 @@ let topicmapTopic         // Topicmap topic of the displayed topicmap
 
 let store
 
-const state = {
-  loading: true
-}
-
-const actions = {
-
-  /**
-   * Dispatched from application (see e.g. DMX platform's dmx-topicmaps module).
-   *
-   * @returns   a promise resolved once topicmap rendering is complete.
-   */
-  showTopicmap ({dispatch}, {topicmapTopic, writable, selection}) {
-    // console.log('### showTopicmap()', topicmapTopic.id, writable)
-    state.loading = true
-    return switchTopicmapRenderer(topicmapTopic)
-      .then(() => getTopicmap(topicmapTopic.id, dispatch))
-      .then(topicmap => dispatch('renderTopicmap', {topicmap, writable, selection}))
-      .then(topicmap => {
-        state.loading = false
-        return topicmap
-      })
-      .catch(error => {
-        // TODO: handle error at higher level?
-        console.error(`Rendering topicmap ${topicmapTopic.id} failed.`, error)
-      })
-  },
-
-  clearTopicmapCache () {
-    topicmapCache = {}
-  },
-
-  // WebSocket messages
-
-  _processDirectives (_, directives) {
-    directives.forEach(dir => {
-      switch (dir.type) {
-      case 'UPDATE_TOPIC':
-        updateTopic(new dmx.Topic(dir.arg))
-        break
-      case 'UPDATE_ASSOC':
-        updateAssoc(new dmx.Assoc(dir.arg))
-        break
-      case 'DELETE_TOPIC':
-        deleteTopic(dir.arg.id)
-        break
-      case 'DELETE_ASSOC':
-        deleteAssoc(dir.arg.id)
-        break
-      }
-    })
-  },
-
-  // Module internal (dispatched from dmx-topicmap-panel component)
-
-  _initTopicmapPanel (_, _topicmapPanel) {
-    topicmapPanel = _topicmapPanel
-    topicmapTypes = _topicmapPanel.topicmapTypes
-    store         = _topicmapPanel.$store
-    // Note: we need the real store object here.
-    // The store-like context object ("_") does not have the un/registerModule() functions.
-  }
-}
-
 export default {
-  state,
-  actions
+
+  state: {
+    loading: true
+  },
+
+  actions: {
+
+    /**
+     * Dispatched from application (see e.g. DMX platform's dmx-topicmaps module).
+     *
+     * @returns   a promise resolved once topicmap rendering is complete.
+     */
+    showTopicmap ({state, dispatch}, {topicmapTopic, writable, selection}) {
+      // console.log('### showTopicmap()', topicmapTopic.id, writable)
+      state.loading = true
+      return switchTopicmapRenderer(topicmapTopic)
+        .then(() => getTopicmap(topicmapTopic.id, dispatch))
+        .then(topicmap => dispatch('renderTopicmap', {topicmap, writable, selection}))
+        .then(topicmap => {
+          state.loading = false
+          return topicmap
+        })
+        .catch(error => {
+          // TODO: handle error at higher level?
+          console.error(`Rendering topicmap ${topicmapTopic.id} failed.`, error)
+        })
+    },
+
+    clearTopicmapCache () {
+      topicmapCache = {}
+    },
+
+    // WebSocket messages
+
+    _processDirectives (_, directives) {
+      directives.forEach(dir => {
+        switch (dir.type) {
+        case 'UPDATE_TOPIC':
+          updateTopic(new dmx.Topic(dir.arg))
+          break
+        case 'UPDATE_ASSOC':
+          updateAssoc(new dmx.Assoc(dir.arg))
+          break
+        case 'DELETE_TOPIC':
+          deleteTopic(dir.arg.id)
+          break
+        case 'DELETE_ASSOC':
+          deleteAssoc(dir.arg.id)
+          break
+        }
+      })
+    },
+
+    // Module internal (dispatched from dmx-topicmap-panel component)
+
+    _initTopicmapPanel (_, _topicmapPanel) {
+      topicmapPanel = _topicmapPanel
+      topicmapTypes = _topicmapPanel.props.topicmapTypes
+      store         = _topicmapPanel.$store
+      // Note: we need the real store object here.
+      // The store-like context object ("_") does not have the un/registerModule() functions.
+    }
+  }
 }
 
 // Topicmap Renderer Switching
