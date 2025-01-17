@@ -4,6 +4,7 @@
 //   - switching topicmap type renderers
 //   - triggering topicmap rendering
 
+import { markRaw } from 'vue'
 import dmx from 'dmx-api'
 import axios from 'axios'
 
@@ -110,7 +111,7 @@ function switchTopicmapRenderer (_topicmapTopic) {
         const _storeModule = typeof storeModule === 'function' ? storeModule({store, dmx, axios}) : storeModule
         store.registerModule(newTypeUri, _storeModule)
         // 2) mount renderer component
-        topicmapPanel.topicmapRenderer = renderer.comp
+        topicmapPanel.topicmapRenderer = markRaw(renderer.comp)     // Vue component internals are not regarded reactive
         //
         resolve()
       })

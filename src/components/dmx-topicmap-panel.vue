@@ -9,12 +9,12 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
 
   created () {
-    // console.log('dmx-topicmap-panel created', this.topicmapTypes, this.$store)
+    // console.log('# dmx-topicmap-panel created', this.props, this.$store)
     this.$store.registerModule('topicmapPanel', require('../topicmap-panel').default)
     this.$store.dispatch('_initTopicmapPanel', this)
   },
