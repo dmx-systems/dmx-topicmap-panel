@@ -79,7 +79,7 @@ export default {
 
     _initTopicmapPanel (_, _topicmapPanel) {
       topicmapPanel = _topicmapPanel
-      topicmapTypes = _topicmapPanel.props.topicmapTypes
+      topicmapTypes = _topicmapPanel.topicmapTypes
       store         = _topicmapPanel.$store
       // Note: we need the real store object here.
       // The store-like context object ("_") does not have the un/registerModule() functions.
@@ -109,7 +109,7 @@ function switchTopicmapRenderer (_topicmapTopic) {
         const _storeModule = typeof storeModule === 'function' ? storeModule({store, dmx, axios}) : storeModule
         store.registerModule(newTypeUri, _storeModule)
         // 2) mount renderer component
-        topicmapPanel.topicmapRenderer = markRaw(renderer.comp)     // Vue component internals are not regarded reactive
+        topicmapPanel.topicmapRenderer = markRaw(renderer.comp)   // Vue component internals are not treated as reactive
         //
         resolve()
       })
