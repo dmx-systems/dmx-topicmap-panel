@@ -109,7 +109,7 @@ function switchTopicmapRenderer (_topicmapTopic) {
         const _storeModule = typeof storeModule === 'function' ? storeModule({store, dmx, axios}) : storeModule
         store.registerModule(newTypeUri, _storeModule)
         // 2) mount renderer component
-        topicmapPanel.topicmapRenderer = markRaw(renderer.comp)   // Vue component internals are not treated as reactive
+        topicmapPanel.topicmapRenderer = markRaw(renderer.comp)       // Vue component internals are not made reactive
         //
         resolve()
       })
